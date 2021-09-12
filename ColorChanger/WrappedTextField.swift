@@ -93,7 +93,7 @@ extension UITextField: UITextFieldDelegate {
         doneToolbar.items = items
         doneToolbar.sizeToFit()
         
-        self.inputAccessoryView = doneToolbar
+        inputAccessoryView = doneToolbar
     }
 }
 
