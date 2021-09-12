@@ -13,6 +13,7 @@
 		F99A18DB26EC94CF006C1CBE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F99A18DA26EC94CF006C1CBE /* Preview Assets.xcassets */; };
 		F99A18E326EC96ED006C1CBE /* ColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F99A18E226EC96ED006C1CBE /* ColorView.swift */; };
 		F99A18E526EC9EDB006C1CBE /* ColorSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F99A18E426EC9EDB006C1CBE /* ColorSlider.swift */; };
+		F99A18E726EDFEC3006C1CBE /* WrappedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F99A18E626EDFEC3006C1CBE /* WrappedTextField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		F99A18DC26EC94CF006C1CBE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F99A18E226EC96ED006C1CBE /* ColorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorView.swift; sourceTree = "<group>"; };
 		F99A18E426EC9EDB006C1CBE /* ColorSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSlider.swift; sourceTree = "<group>"; };
+		F99A18E626EDFEC3006C1CBE /* WrappedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrappedTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +62,7 @@
 				F99A18D526EC94CB006C1CBE /* ContentView.swift */,
 				F99A18E226EC96ED006C1CBE /* ColorView.swift */,
 				F99A18E426EC9EDB006C1CBE /* ColorSlider.swift */,
+				F99A18E626EDFEC3006C1CBE /* WrappedTextField.swift */,
 				F99A18D726EC94CF006C1CBE /* Assets.xcassets */,
 				F99A18DC26EC94CF006C1CBE /* Info.plist */,
 				F99A18D926EC94CF006C1CBE /* Preview Content */,
@@ -146,6 +149,7 @@
 			files = (
 				F99A18E326EC96ED006C1CBE /* ColorView.swift in Sources */,
 				F99A18D626EC94CB006C1CBE /* ContentView.swift in Sources */,
+				F99A18E726EDFEC3006C1CBE /* WrappedTextField.swift in Sources */,
 				F99A18E526EC9EDB006C1CBE /* ColorSlider.swift in Sources */,
 				F99A18D426EC94CB006C1CBE /* ColorChangerApp.swift in Sources */,
 			);

@@ -8,25 +8,34 @@
 import SwiftUI
 
 struct ColorSlider: View {
+    @State var alertPresented = false
+    
     let colorType: Color
-   @Binding var colorValue: Double
+    @Binding var colorValue: Double
+    
+    
     var body: some View {
+        
         HStack {
             Slider(value: $colorValue)
                 .accentColor(colorType)
-            TextField("\(colorType.description)", value: $colorValue, formatter: NumberFormatter.decimal)
+            WrappedTextField(colorValue: $colorValue)
                 .bordered()
-                .frame(width: 65)
-                .multilineTextAlignment(.center)
+                .frame(width: 65, height: 40)
+//            TextField("\(colorType.description)", value: $colorValue, formatter: NumberFormatter.decimal)
+//                .bordered()
+//                .keyboardType(.numberPad)
+//                .alert(isPresented: $alertPresented, content: {
+//                    Alert(title: Text("Wrong format"), message: Text("use only digits"))
+//                })
+//                .frame(width: 65)
+//                .multilineTextAlignment(.center)
         }
         .padding()
     }
-    
 }
 
 struct BorderViewModifier: ViewModifier {
-    
-    
     
     func body(content: Content) -> some View {
         content
@@ -50,7 +59,7 @@ extension NumberFormatter {
         }
 }
 
-extension TextField {
+extension WrappedTextField {
     func bordered() -> some View {
         ModifiedContent(content: self, modifier: BorderViewModifier())
     }
