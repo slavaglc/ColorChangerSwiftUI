@@ -14,9 +14,7 @@ struct ColorSlider: View {
     let colorType: Color
     @Binding var colorValue: Double
     
-    
     var body: some View {
-        
         HStack {
             Slider(value: $colorValue)
                 .accentColor(colorType)
@@ -42,18 +40,8 @@ struct BorderViewModifier: ViewModifier {
                         
                             
     }
-        
-    
 }
 
-extension NumberFormatter {
-    static var decimal: NumberFormatter {
-            let formatter = NumberFormatter()
-            formatter.minimumFractionDigits = 3
-            formatter.numberStyle = .decimal
-            return formatter
-        }
-}
 
 extension WrappedTextField {
     func bordered() -> some View {
