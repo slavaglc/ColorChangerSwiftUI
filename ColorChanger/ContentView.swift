@@ -25,7 +25,7 @@ struct ContentView: View {
                 ColorSlider(colorType: .blue, colorValue: $blueColor)
                 Spacer()
                 
-            }
+            }.padding()
         }
     }
 }

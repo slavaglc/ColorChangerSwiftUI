@@ -9,59 +9,91 @@ import SwiftUI
 
 struct WrappedTextField: UIViewRepresentable {
     @Binding var colorValue: Double
-    
+    @Binding var alertPresented: Bool
+    @Binding var error: Text?
     
     typealias UIViewType = UITextField
     
     func makeUIView(context: Context) -> UITextField {
         let textField = UITextField()
         textField.delegate = context.coordinator
-        textField.addDoneButtonOnKeyboard()
+        textField.addDoneButtonOnKeyboard(toCoordinator: context.coordinator)
+        textField.textAlignment = .center
+        textField.keyboardType = .decimalPad
         return textField
     }
     
     func updateUIView(_ uiView: UITextField, context: Context) {
         uiView.text = String(colorValue.rounded(toPlaces: 3))
-        updateTextField(textField: uiView)
-    }
-    
-    func updateTextField(textField: UITextField) {
-        guard let text = textField.text else { return }
-        
     }
     
     func makeCoordinator() -> Coordinator {
-        return Coordinator()
+        return Coordinator(self)
     }
-    
-    public class Coordinator: NSObject, UITextFieldDelegate {
-        // delegate methods...
-    }
-    
     
 }
 
-
-extension UITextField {
+final class Coordinator: NSObject, UITextFieldDelegate {
+    let wrappedTextField: WrappedTextField
+    var currentTextField: UITextField?
     
-    func addDoneButtonOnKeyboard(){
+    init(_ wrappedTextField: WrappedTextField) {
+        self.wrappedTextField = wrappedTextField
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        currentTextField = textField
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
+        currentTextField = textField
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        currentTextField = textField
+        doneButtonAction()
+        return true
+    }
+    
+    @objc func doneButtonAction() {
+        guard let textField = currentTextField else { return }
+        guard let text = textField.text else { return }
+        textField.resignFirstResponder()
+        guard text != "" else {
+            wrappedTextField.alertPresented = true
+            wrappedTextField.error = Text("Please, type value")
+            return
+        }
+        guard let value = Double(text) else {
+            wrappedTextField.alertPresented = true
+            wrappedTextField.error = Text("Please use only digits")
+            return
+        }
+        guard value <= 1 && value >= 0 else {
+            wrappedTextField.alertPresented = true
+            wrappedTextField.error = Text("Type count between 0 and 1")
+            return
+        }
+        wrappedTextField.colorValue = value
+    }
+
+
+}
+
+extension UITextField: UITextFieldDelegate {
+    
+    func addDoneButtonOnKeyboard(toCoordinator coordinator: Coordinator) {
         let doneToolbar: UIToolbar = UIToolbar(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
         doneToolbar.barStyle = .default
         
         let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let done: UIBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(self.doneButtonAction))
+        let done: UIBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: coordinator, action: #selector(coordinator.doneButtonAction))
         
         let items = [flexSpace, done]
         doneToolbar.items = items
         doneToolbar.sizeToFit()
         
         self.inputAccessoryView = doneToolbar
-    }
-    
-    
-    @objc func doneButtonAction() {
-        
-        self.resignFirstResponder()
     }
 }
 

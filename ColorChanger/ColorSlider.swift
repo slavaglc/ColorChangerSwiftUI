@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ColorSlider: View {
     @State var alertPresented = false
+    @State var error: Text? = nil
     
     let colorType: Color
     @Binding var colorValue: Double
@@ -19,17 +20,12 @@ struct ColorSlider: View {
         HStack {
             Slider(value: $colorValue)
                 .accentColor(colorType)
-            WrappedTextField(colorValue: $colorValue)
+            WrappedTextField(colorValue: $colorValue, alertPresented: $alertPresented, error: $error)
                 .bordered()
                 .frame(width: 65, height: 40)
-//            TextField("\(colorType.description)", value: $colorValue, formatter: NumberFormatter.decimal)
-//                .bordered()
-//                .keyboardType(.numberPad)
-//                .alert(isPresented: $alertPresented, content: {
-//                    Alert(title: Text("Wrong format"), message: Text("use only digits"))
-//                })
-//                .frame(width: 65)
-//                .multilineTextAlignment(.center)
+                .alert(isPresented: $alertPresented, content: {
+                    Alert(title: Text("Wrong!"), message: error)
+                })
         }
         .padding()
     }
